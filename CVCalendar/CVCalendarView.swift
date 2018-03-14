@@ -289,7 +289,7 @@ extension CVCalendarView {
                         height = contentViewSize.height
                         contentController.updateHeight(height, animated: false)
                     case .monthView :
-                        height = (maxHeight / countOfWeeks) - (vSpace * countOfWeeks)
+                        height = (maxHeight / countOfWeeks) + (vSpace * countOfWeeks)
                     }
 
                     // If no height constraint found we set it manually.
@@ -355,17 +355,9 @@ extension CVCalendarView {
 
     public func changeMode(_ mode: CalendarMode, completion: @escaping () -> () = {}) {
         let calendar = self.delegate?.calendar?() ?? Calendar.current
-        let shouldSelectRange = self.delegate?.shouldSelectRange?() ?? false
-        
-        guard calendarMode != mode else {
+        guard let selectedDate = coordinator.selectedDayView?.date.convertedDate(calendar: calendar) ,
+            calendarMode != mode else {
             return
-        }
-        
-        var selectedDate:Date?
-        if !shouldSelectRange {
-            selectedDate = coordinator.selectedDayView?.date.convertedDate(calendar: calendar)
-        } else {
-            selectedDate = coordinator.selectedStartDayView?.date.convertedDate(calendar: calendar)
         }
 
         calendarMode = mode

@@ -16,7 +16,7 @@ public final class CVCalendarDayView: UIView {
     public var date: CVDate!
     public var dayLabel: UILabel!
     
-    public var selectionView: CVAuxiliaryView?
+    public var selectionView: UIView?
     public var topMarker: CALayer?
     public var dotMarkers = [CVAuxiliaryView?]()
     
@@ -155,7 +155,7 @@ extension CVCalendarDayView {
         let appearance = calendarView.appearance
         
         dayLabel = UILabel()
-        let numberFormatter = NumberFormatter()
+        let numberFormatter = NumberFormatter()  //158-161
         if let locale = calendarView.delegate?.calendar?()?.locale {
             numberFormatter.locale = locale
         }
@@ -539,13 +539,24 @@ extension CVCalendarDayView {
         if let selectionView = selectionView , selectionView.frame != dayLabel.bounds {
             selectionView.frame = dayLabel.bounds
         } else {
-            selectionView = CVAuxiliaryView(dayView: self, rect: dayLabel.bounds, shape: shape)
+            selectionView = UIView.init(frame: CGRect.init(x: dayLabel.frame.minX, y: dayLabel.frame.minY, width: dayLabel.frame.height, height: dayLabel.frame.height))
         }
         
-        selectionView!.fillColor = backgroundColor
-        selectionView!.alpha = backgroundAlpha
-        selectionView!.setNeedsDisplay()
-        insertSubview(selectionView!, at: 0)
+        if let selectionView = selectionView {
+            selectionView.backgroundColor = backgroundColor
+            selectionView.alpha = backgroundAlpha
+            selectionView.layer.cornerRadius = dayLabel.frame.height/2
+            selectionView.clipsToBounds = false
+            selectionView.layer.shadowColor = UIColor.black.cgColor
+            selectionView.layer.shadowOpacity = 0.5
+            selectionView.layer.shadowOffset = CGSize.zero
+            selectionView.layer.shadowRadius = 4
+            
+            selectionView.layer.shadowPath = UIBezierPath(roundedRect: selectionView.bounds, cornerRadius: selectionView.frame.height/2).cgPath
+            
+            selectionView.setNeedsDisplay()
+            insertSubview(selectionView, at: 0)
+        }
         
         moveDotMarkerBack(false, coloring: false)
     }
