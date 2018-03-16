@@ -314,7 +314,7 @@ extension CVCalendarDayView {
                     var x: CGFloat = 0
                     switch colors!.count {
                     case 1:
-                        x = x = frame.width / 3 //frame.width / 2
+                        x = frame.width / 3 //frame.width / 2
                     case 2:
                         x = frame.width * CGFloat(2+index)/5.00 // frame.width * (2/5, 3/5)
                     case 3:
