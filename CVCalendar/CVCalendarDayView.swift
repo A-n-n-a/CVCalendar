@@ -301,7 +301,7 @@ extension CVCalendarDayView {
                 if let y = delegate.dotMarker?(moveOffsetOnDayView: self) {
                     yOffset = y
                 }
-                let y = frame.midY + yOffset
+                let y = frame.height / 2 + 2 //frame.midY + yOffset
                 let markerFrame = CGRect(x: 0, y: 0, width: width, height: height)
                 
                 if colors!.count > 3 {
@@ -314,7 +314,7 @@ extension CVCalendarDayView {
                     var x: CGFloat = 0
                     switch colors!.count {
                     case 1:
-                        x = frame.width / 2
+                        x = x = frame.width / 3 //frame.width / 2
                     case 2:
                         x = frame.width * CGFloat(2+index)/5.00 // frame.width * (2/5, 3/5)
                     case 3:
