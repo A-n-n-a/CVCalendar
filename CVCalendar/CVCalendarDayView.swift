@@ -537,7 +537,9 @@ extension CVCalendarDayView {
         }
         
         if let selectionView = selectionView , selectionView.frame != dayLabel.bounds {
-            selectionView.frame = dayLabel.bounds
+            selectionView.frame = CGRect.init(x: dayLabel.bounds.minX, y: dayLabel.bounds.minY, width: dayLabel.bounds.width, height: dayLabel.bounds.width)
+            selectionView.center = dayLabel.center
+            selectionView.layer.cornerRadius = dayLabel.bounds.width / 2
         } else {
             selectionView = UIView.init(frame: CGRect.init(x: dayLabel.frame.minX, y: dayLabel.frame.minY, width: dayLabel.frame.height, height: dayLabel.frame.height))
         }
@@ -545,7 +547,6 @@ extension CVCalendarDayView {
         if let selectionView = selectionView {
             selectionView.backgroundColor = backgroundColor
             selectionView.alpha = backgroundAlpha
-            selectionView.layer.cornerRadius = dayLabel.frame.height/2
             selectionView.clipsToBounds = false
             selectionView.layer.shadowColor = UIColor.black.cgColor
             selectionView.layer.shadowOpacity = 0.5
