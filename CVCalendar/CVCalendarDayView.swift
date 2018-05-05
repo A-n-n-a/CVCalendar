@@ -536,18 +536,18 @@ extension CVCalendarDayView {
             }
         }
         
-        if let selectionView = selectionView , selectionView.frame != dayLabel.bounds {
-            selectionView.frame = CGRect.init(x: dayLabel.bounds.minX, y: dayLabel.bounds.minY, width: dayLabel.bounds.width, height: dayLabel.bounds.width)
-            selectionView.center = dayLabel.center
-            selectionView.layer.cornerRadius = dayLabel.bounds.width / 2
-        } else {
-            selectionView = UIView.init(frame: CGRect.init(x: dayLabel.frame.minX, y: dayLabel.frame.minY, width: dayLabel.frame.height, height: dayLabel.frame.height))
+        let side = min(dayLabel.bounds.width, dayLabel.bounds.height)
+        if selectionView == nil {
+            selectionView = UIView.init(frame: CGRect.init(x: dayLabel.bounds.minX, y: dayLabel.bounds.minY, width: side, height: side))
+            selectionView?.center = dayLabel.center
+            selectionView?.layer.cornerRadius = side / 2
         }
         
+        
         if let selectionView = selectionView {
-            selectionView.frame = CGRect.init(x: dayLabel.bounds.minX, y: dayLabel.bounds.minY, width: dayLabel.bounds.width, height: dayLabel.bounds.width)
+            selectionView.frame = CGRect.init(x: dayLabel.bounds.minX, y: dayLabel.bounds.minY, width: side, height: side)
             selectionView.center = dayLabel.center
-            selectionView.layer.cornerRadius = dayLabel.bounds.width / 2
+            selectionView.layer.cornerRadius = side / 2
             selectionView.backgroundColor = backgroundColor
             selectionView.alpha = backgroundAlpha
             selectionView.clipsToBounds = false
