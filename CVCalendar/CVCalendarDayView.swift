@@ -553,7 +553,7 @@ extension CVCalendarDayView {
             selectionView.clipsToBounds = false
             selectionView.layer.shadowColor = UIColor.black.cgColor
             selectionView.layer.shadowOpacity = 0.5
-            selectionView.layer.shadowOffset = CGSize.zero
+            selectionView.layer.shadowOffset = CGSize(width: 2, height: 2)
             selectionView.layer.shadowRadius = 4
             
             selectionView.layer.shadowPath = UIBezierPath(roundedRect: selectionView.bounds, cornerRadius: selectionView.frame.height/2).cgPath
